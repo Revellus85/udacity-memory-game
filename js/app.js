@@ -3,8 +3,7 @@
  */
 let deck = ["fa fa-diamond","fa fa-paper-plane-o","fa fa-anchor","fa fa-bolt","fa fa-cube","fa fa-anchor","fa fa-leaf","fa fa-bicycle","fa fa-diamond","fa fa-bomb","fa fa-leaf","fa fa-bomb","fa fa-bolt","fa fa-bicycle","fa fa-paper-plane-o","fa fa-cube"];
 let openCards = [],
-shownCards = [],
-moves = 0,
+matchedCards = [],
 matches = 0,
 attempts = 0,
 gameActive = false;
@@ -16,7 +15,7 @@ const mainDeck = document.getElementById('main-deck');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-function createDeck(shuffle) {       
+function createDeck() {       
      // Remove existing deck
     mainDeck.innerHTML = "";  
     for (let i = 0; i < deck.length; i++){
@@ -27,17 +26,10 @@ function createDeck(shuffle) {
 
         mainDeck.appendChild(shuffledDeck);
         shuffledDeck.appendChild(shuffledCards);
-        
-    }    
+    }
 }
 shuffle(deck);
 createDeck();
-
-    
-
-
-
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -55,6 +47,60 @@ function shuffle(array) {
 }
 
 
+// Show a card
+function showCard(){
+    event.target.classList.add('open'); 
+    event.target.classList.add('show');
+}
+
+
+function increaseMatch(){
+    matches = matches + 1;
+}
+
+
+// Add shown card to new array and check to see if a match occurs 
+document.addEventListener('click', function(event){
+    // To prevent user from clicking the same card twice.
+    if (event.target.classList.contains('open')) {
+        return; 
+    }
+    showCard();
+    addCard(event); // This parameter event here is used from the accepted parameter above 
+    compareCards(); 
+})
+
+// Remember: Function can't access variables defined inside another function.
+
+function addCard(event){
+    openCards.push(event.target);
+}
+
+
+function compareCards(){
+    if (openCards.length === 2){   
+        if (openCards[0].childNodes[0].className == openCards[1].childNodes[0].className){
+            increaseMatch();
+            // openCards[0].classList.add('card');
+            // openCards[0].classList.add('match');
+            // openCards[1].classList.add('card');
+            // openCards[1].classList.add('match')
+            openCards[0].className = 'card match grow';
+            openCards[1].className = 'card match grow';
+            matchedCards.push(openCards[0]);
+            matchedCards.push(openCards[1]);
+            openCards = [];
+        } else {                        
+            openCards[0].className = 'wobble';
+            openCards[1].className ='wobble';
+            setTimeout(function(){ 
+                openCards[0].classList.add('card');
+                openCards[1].classList.add('card');               
+                openCards = [];
+            }, 600);       
+        }
+    }
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)

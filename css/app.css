@@ -107,3 +107,14 @@ h1 {
     float: right;
     cursor: pointer;
 }
+.grow {
+    animation: zoom 0.2s normal;
+}
+@keyframes zoom { 
+    100% {
+    transform: scale(1.2); 
+    }
+}
+.wobble {
+    color: #a1302c;
+}
