@@ -116,5 +116,8 @@ h1 {
     }
 }
 .wobble {
-    color: #a1302c;
+    color: red;
+}
+.time {
+    padding-left: 20px;
 }
