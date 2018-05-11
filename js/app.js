@@ -127,7 +127,7 @@ function gameOver() {
     setTimeout(function() {
       modal.classList.add('modal-is-visible');
       modalMoves.innerHTML = moves;
-      modalStars.innerHTML = stars + "  stars, good job!";
+      modalStars.innerHTML = "You got " + stars + "  stars, good job!";
       modalTime.innerHTML = time;
     }, 400);
   }
