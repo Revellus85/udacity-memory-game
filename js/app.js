@@ -12,7 +12,12 @@ const mainDeck = document.getElementById('main-deck');
 const movesDisplay = document.querySelector('.moves'),
 starDisplay = document.querySelector('.stars'),
 timeDisplay = document.querySelector('.time');
-restartButton = document.querySelector('.restart');
+restartButton = document.querySelector('.restart'),
+modalRestartButton = document.querySelector('.modal-restart'),
+modal = document.querySelector('.modal'),
+modalTime = document.querySelector('.modal-time'),
+modalMoves = document.querySelector('.modal-moves'),
+modalStars = document.querySelector('.modal-stars');
 var stopTimer;
 
 /*
@@ -120,13 +125,17 @@ function gameOver() {
   if (matchedCards.length == 16) {
     clearInterval(stopTimer);
     setTimeout(function() {
-      alert("You won!");
-    }, 600);
+      modal.classList.add('modal-is-visible');
+      modalMoves.innerHTML = moves;
+      modalStars.innerHTML = stars + "  stars, good job!";
+      modalTime.innerHTML = time;
+    }, 400);
   }
 }
 
 
 restartButton.addEventListener('click', startOver);
+modalRestartButton.addEventListener('click', startOver);
 // Remember: Function can't access variables defined inside another function.
 
 function addCard(event) {
