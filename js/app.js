@@ -1,12 +1,13 @@
 /*
  * Create a list that holds all of your cards
  */
-let deck = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
-let openCards = [];
+let cards = ["fa fa-cube", "fa fa-anchor", "fa fa-bicycle", "fa fa-diamond", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-paper-plane-o"],
+deck = cards.concat(cards),
+openCards = [],
 matchedCards = [],
 matches = 0,
 moves = 0,
-time = 0;
+time = 0,
 gameActive = false;
 const mainDeck = document.getElementById('main-deck');
 const movesDisplay = document.querySelector('.moves'),
@@ -38,6 +39,7 @@ function createDeck() {
         return;
       }
       if (shuffledDeck !== event.target) return;
+      if (event.target.classList.contains('match')) return;
       if (event.target.classList.contains('open')) {
         return;
       }
